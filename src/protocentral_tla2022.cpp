@@ -23,7 +23,7 @@
 
 
 #include<SPI.h>
-#include "protocentral_max30001.h"
+#include "protocentral_tla2022.h"
 
 #define MAX30001_SPI_SPEED 1000000
 
@@ -34,15 +34,16 @@ TLA2022::TLA2022(uint8_t i2c_addr)
 }
 
 // Wire.h read and write protocols
-void TLA2022::write_reg(uint8_t reg_addr, uint16_t data){
+void TLA2022::write_reg(uint8_t reg_addr, uint16_t in_data)
+{
 
-    _i2c_data.u16_value = data;
+    _i2c_data.u16_value = in_data;
 
 	Wire.beginTransmission(_i2c_addr);  
 	Wire.write(reg_addr); 
               
-	Wire.write(data.u8_bytes[1]);
-    Wire.write(data.u8_bytes[0]);     
+	Wire.write(_i2c_data.u8_bytes[1]);
+    Wire.write(_i2c_data.u8_bytes[0]);     
 
 	Wire.endTransmission();           
 
@@ -70,19 +71,19 @@ uint16_t TLA2022::read_reg(uint8_t reg_addr){
 
 float TLA2022::analogRead() {
     // this only needs to run when in single shot.
-    if (currentMode_ == OP_SINGLE) {
+    //if (currentMode_ == OP_SINGLE) {
         // write 1 to OS bit to start conv
-        uint16_t current_conf = read(confReg_);
+        uint16_t current_conf = read_reg(TLA2022_CONF_REG);
         current_conf |= 0x8000;
-        write(current_conf);
+        write_reg(TLA2022_CONF_REG,current_conf);
         // OS bit will be 0 until conv is done.
         do {
             delay(5);
-        } while ((read(confReg_) & 0x8000) == 0);
-    }
+        } while ((read_reg(TLA2022_CONF_REG) & 0x8000) == 0);
+    //}
 
     // get data from conv_reg
-    uint16_t in_data = read(convReg_);
+    uint16_t in_data = read_reg(TLA2022_CONF_REG);
 
     // shift out unused bits
     in_data >>= 4;

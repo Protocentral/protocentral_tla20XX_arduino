@@ -26,6 +26,7 @@
 #define protocentral_max30001_h
 
 #include <Arduino.h>
+#include <Wire.h>
 
 typedef enum
 {
@@ -34,24 +35,26 @@ typedef enum
   SAMPLINGRATE_512 = 512
 } sampRate;
 
+#define TLA2022_CONV_REG 0x00
+#define TLA2022_CONF_REG 0x01
+
 class TLA2022
 {
   public:
     TLA2022::TLA2022(uint8_t i2caddr);
     void begin(void);
- 
-  private:
-    void    I2CwriteByte(uint8_t address, uint8_t subAddress, uint8_t data);
-    uint8_t I2CreadByte(uint8_t address, uint8_t subAddress);
-    void    I2CreadBytes(uint8_t address, uint8_t subAddress, uint8_t * dest, uint8_t count);
+    float analogRead();
 
-    uint8_t _i2caddr;
+  private:
+    void write_reg(uint8_t reg_addr, uint16_t data);
+    uint16_t read_reg(uint8_t reg_addr);
+    
+    uint8_t _i2c_addr;
 
     union I2C_data {
         uint8_t u8_bytes[2];
         uint16_t u16_value;
     } _i2c_data;
 };
-
 
 #endif
