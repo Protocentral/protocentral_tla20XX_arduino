@@ -3,9 +3,7 @@
 
 #include <protocentral_tla2022.h>
 
-#define TLA2022_I2C_ADDR    0x01
-
-TLA2022 tla2022(TLA2022_I2C_ADDR);
+TLA2022 tla2022(0x01);
 
 void setup() {
 
@@ -13,6 +11,8 @@ void setup() {
     Serial.println("Starting ADC...");
 
     Wire.begin();
+
+    tla2022.begin();
 
     /*if (adc.begin()) {
         Serial.println("Device is init-ed");
@@ -32,9 +32,12 @@ void loop() {
 
     float val = tla2022.read_adc(); //use this in conjunction with adc.setMuxConfig() method;
 
-    long converted = map((long)val, -2048, 2047, 0, 2048 );
-    float convF = 2*converted*1.0f/1000;
-    Serial.printf("V = %.3f\n", convF);
+    //float val = adc.analogRead(channelToRead);
+    //Serial.printf("Channel %d, ADC reading: %.3f\n", channelToRead, val);
+
+//    long converted = map((long)val, -2048, 2047, 0, 2048 );
+//    float convF = 2*converted*1.0f/1000;
+//    Serial.printf("V = %.3f\n", convF);
 
     //Serial.printf("Voltage = %.3fV\n", adc.voltageRead(channelToRead));
     Serial.println();
