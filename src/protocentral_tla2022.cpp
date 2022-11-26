@@ -25,7 +25,6 @@
 #include<SPI.h>
 #include "protocentral_tla2022.h"
 
-#define MAX30001_SPI_SPEED 1000000
 
 TLA2022::TLA2022(uint8_t i2c_addr)
 {
@@ -69,7 +68,7 @@ uint16_t TLA2022::read_reg(uint8_t reg_addr){
 	return data;
 }
 
-float TLA2022::analogRead() {
+float TLA2022::read_adc() {
     // this only needs to run when in single shot.
     //if (currentMode_ == OP_SINGLE) {
         // write 1 to OS bit to start conv
