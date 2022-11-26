@@ -107,3 +107,16 @@ float TLA2022::read_adc() {
     return ret;
 }
 
+void TLA2022::begin() {
+
+    //reset();
+    delay(10);
+
+    uint16_t init = read_reg(TLA2022_CONF_REG);
+    //Serial.print("Done init. 0x%X\n", init);
+
+    // make sure communication with device is working and that it is OK
+    //return (init == initConf_) ? true : false;
+}
+
+
