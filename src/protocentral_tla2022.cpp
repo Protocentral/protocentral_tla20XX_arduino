@@ -81,6 +81,30 @@ void TLA2022::setFSR(TLA2022::FSR range) {
     write_reg(TLA2022_CONF_REG,conf);
 }
 
+void TLA2022::setMode(TLA2022::MODE mode) {
+    // bring in conf reg
+   // currentMode_ = mode;
+    uint16_t conf = read_reg(TLA2022_CONF_REG);
+
+    // clear MODE bit (8) (continous conv)
+    conf &= ~(1 << 8);
+    if (mode == OP_SINGLE) {
+        // single shot
+        conf |= (1 << 8);
+    }
+    write_reg(TLA2022_CONF_REG,conf);
+}
+
+void TLA2022::setDR(TLA2022::DR rate) {
+    // bring in conf reg
+    uint16_t conf = read_reg(TLA2022_CONF_REG);
+
+    // set bits 7:5
+//    conf |= 0b111 << 5;
+    conf |= rate << 5;
+    write(TLA2022_CONF_REG,conf);
+}
+
 float TLA2022::read_adc() {
     // this only needs to run when in single shot.
     //if (currentMode_ == OP_SINGLE) {
