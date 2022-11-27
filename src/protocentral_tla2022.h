@@ -34,7 +34,7 @@
 class TLA2022
 {
   public:
-    TLA2022::TLA2022(uint8_t i2caddr);
+    TLA2022(uint8_t i2c_addr);
     void begin(void);
     float read_adc();
 

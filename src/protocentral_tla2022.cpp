@@ -21,10 +21,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-
 #include<SPI.h>
 #include "protocentral_tla2022.h"
-
 
 TLA2022::TLA2022(uint8_t i2c_addr)
 {
@@ -39,8 +37,8 @@ void TLA2022::write_reg(uint8_t reg_addr, uint16_t in_data)
     _i2c_data.u16_value = in_data;
 
 	Wire.beginTransmission(_i2c_addr);  
-	Wire.write(reg_addr); 
-              
+
+	Wire.write(reg_addr);           
 	Wire.write(_i2c_data.u8_bytes[1]);
     Wire.write(_i2c_data.u8_bytes[0]);     
 
@@ -57,14 +55,18 @@ void TLA2022::write_reg(uint8_t reg_addr, uint16_t in_data)
 uint16_t TLA2022::read_reg(uint8_t reg_addr){
 	uint16_t data; 
 	
-    /*Wire.beginTransmission(_i2c_addr);
+    Wire.beginTransmission(_i2c_addr);
 
-	Wire.write(subAddress);
+	Wire.write(reg_addr);
 
 	Wire.endTransmission(false);
-	Wire.requestFrom(address, (uint8_t) 1);
-	data = Wire.read();
-    */
+	Wire.requestFrom(_i2c_addr, (uint8_t) 2);
+
+    _i2c_data.u8_bytes[1]=Wire.read();
+    _i2c_data.u8_bytes[0]=Wire.read();
+
+	data = _i2c_data.u16_value;
+    
 	return data;
 }
 
@@ -72,17 +74,24 @@ float TLA2022::read_adc() {
     // this only needs to run when in single shot.
     //if (currentMode_ == OP_SINGLE) {
         // write 1 to OS bit to start conv
-        uint16_t current_conf = read_reg(TLA2022_CONF_REG);
+        
+        /*uint16_t current_conf = read_reg(TLA2022_CONF_REG);
         current_conf |= 0x8000;
         write_reg(TLA2022_CONF_REG,current_conf);
         // OS bit will be 0 until conv is done.
         do {
             delay(5);
         } while ((read_reg(TLA2022_CONF_REG) & 0x8000) == 0);
+        */
     //}
 
+    //uint16_t current_conf = read_reg(TLA2022_CONF_REG);
+    //Serial.print("CF: ");
+    //Serial.println(current_conf, HEX);
+    
+
     // get data from conv_reg
-    uint16_t in_data = read_reg(TLA2022_CONF_REG);
+    uint16_t in_data = read_reg(TLA2022_CONV_REG);
 
     // shift out unused bits
     in_data >>= 4;
@@ -107,16 +116,14 @@ float TLA2022::read_adc() {
     return ret;
 }
 
-void TLA2022::begin() {
-
-    //reset();
-    delay(10);
-
+void TLA2022::begin() 
+{
     uint16_t init = read_reg(TLA2022_CONF_REG);
-    //Serial.print("Done init. 0x%X\n", init);
 
-    // make sure communication with device is working and that it is OK
-    //return (init == initConf_) ? true : false;
+    Serial.print("Done init: ");
+    Serial.print(init);
+
+    write_reg(TLA2022_CONF_REG,0x8683);
 }
 
 
