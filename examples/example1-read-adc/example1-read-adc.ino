@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include <Wire.h>
-
 #include <protocentral_tla2022.h>
 
 #define TLA2022_I2C_ADDR 0x49
@@ -29,8 +28,6 @@ float val;
 void loop() 
 {
     val = tla2022.read_adc(); 
-
     Serial.println(val);
-
     delay(100);
 }

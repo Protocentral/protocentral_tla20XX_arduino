@@ -102,7 +102,7 @@ void TLA2022::setDR(TLA2022::DR rate) {
     // set bits 7:5
 //    conf |= 0b111 << 5;
     conf |= rate << 5;
-    write(TLA2022_CONF_REG,conf);
+    write_reg(TLA2022_CONF_REG,conf);
 }
 
 float TLA2022::read_adc() {
