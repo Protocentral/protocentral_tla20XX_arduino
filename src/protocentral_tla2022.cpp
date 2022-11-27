@@ -70,6 +70,17 @@ uint16_t TLA2022::read_reg(uint8_t reg_addr){
 	return data;
 }
 
+void TLA2022::setFSR(TLA2022::FSR range) {
+    uint16_t conf = read_reg(TLA2022_CONF_REG);
+
+    // clear the PGA bits:
+    conf &= ~0x0E00;
+
+    // shift
+    conf |= range << 9;
+    write_reg(TLA2022_CONF_REG,conf);
+}
+
 float TLA2022::read_adc() {
     // this only needs to run when in single shot.
     //if (currentMode_ == OP_SINGLE) {
@@ -115,6 +126,8 @@ float TLA2022::read_adc() {
     // return raw adc data
     return ret;
 }
+
+
 
 void TLA2022::begin() 
 {

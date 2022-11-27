@@ -34,9 +34,36 @@
 class TLA2022
 {
   public:
+    enum DR {
+        DR_128SPS = 0x0,
+        DR_250SPS = 0x1,
+        DR_490SPS = 0x2,
+        DR_920SPS = 0x3,
+        DR_1600SPS = 0x4,
+        DR_2400SPS = 0x5,
+        DR_3300SPS = 0x6,
+    };
+
+     enum FSR {
+        FSR_6_144V = 0x0,
+        FSR_4_096V = 0x1,
+        FSR_2_048V = 0x2,
+        FSR_1_024V = 0x3,
+        FSR_0_512V = 0x4,
+        FSR_0_256V = 0x5,
+    };
+
+    enum MODE {
+        OP_CONTINUOUS = 0,
+        OP_SINGLE = 1
+    };
+
     TLA2022(uint8_t i2c_addr);
     void begin(void);
     float read_adc();
+    void setFSR(FSR fsr);
+    void setMode(MODE mode);
+    void setDR(DR rate);
 
   private:
     void write_reg(uint8_t reg_addr, uint16_t data);

@@ -12,12 +12,14 @@ void setup() {
     Serial.begin(57600);
     Serial.println("Starting ADC...");
 
-    Wire.setSDA(4);
-    Wire.setSCL(5);
+    //Wire.setSDA(4);
+    //Wire.setSCL(5);
 
     Wire.begin();
 
     tla2022.begin();
+
+    tla2022.setFSR(TLA2022::FSR_1_024V);
 
     /*if (adc.begin()) {
         Serial.println("Device is init-ed");
