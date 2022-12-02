@@ -60,7 +60,7 @@ class TLA2022
 
     TLA2022(uint8_t i2c_addr);
     void begin(void);
-    float read_adc();
+    int16_t read_adc();
     void setFSR(FSR fsr);
     void setMode(MODE mode);
     void setDR(DR rate);

@@ -18,16 +18,18 @@ void setup()
 
     tla2022.begin();
 
-    tla2022.setFSR(TLA2022::FSR_1_024V);
+    
     tla2022.setMode(TLA2022::OP_CONTINUOUS);
     tla2022.setDR(TLA2022::DR_128SPS);
+    tla2022.setFSR(TLA2022::FSR_2_048V);
 }
 
 float val;
 
 void loop() 
 {
-    val = tla2022.read_adc(); 
+    float val = tla2022.read_adc(); // +/- 2.048 V FSR, 1 LSB = 1 mV
     Serial.println(val);
+    
     delay(100);
 }
