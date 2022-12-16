@@ -1,3 +1,4 @@
+// ______          _        _____            _             _ 
 // | ___ \        | |      /  __ \          | |           | |
 // | |_/ / __ ___ | |_ ___ | /  \/ ___ _ __ | |_ _ __ __ _| |
 // |  __/ '__/ _ \| __/ _ \| |    / _ \ '_ \| __| '__/ _` | |
@@ -6,9 +7,11 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //
-//  Arduino Library for the TI TLA2022 ADC (https://www.ti.com/product/TLA2022)
+//  Arduino Library for the TI TLA20XX ADC (https://www.ti.com/product/TLA20XX)
 //
-//  Copyright (c) 2020 ProtoCentral
+//  Copyright (c) 2022 ProtoCentral
+//
+//  Written by: Ashwin Whitchurch (ashwin@protocentral.com)
 //
 //  This software is licensed under the MIT License(http://opensource.org/licenses/MIT).
 //
@@ -22,14 +25,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 #include<SPI.h>
-#include "protocentral_tla2022.h"
+#include "protocentral_TLA20XX.h"
 
-TLA2022::TLA2022(uint8_t i2c_addr)
+TLA20XX::TLA20XX(uint8_t i2c_addr)
 {
     _i2c_addr=i2c_addr;
 }
 
-void TLA2022::write_reg(uint8_t reg_addr, uint16_t in_data)
+void TLA20XX::write_reg(uint8_t reg_addr, uint16_t in_data)
 {
     _i2c_data.u16_value = in_data;
 
@@ -42,7 +45,7 @@ void TLA2022::write_reg(uint8_t reg_addr, uint16_t in_data)
 	Wire.endTransmission();           
 }
 
-uint16_t TLA2022::read_reg(uint8_t reg_addr){
+uint16_t TLA20XX::read_reg(uint8_t reg_addr){
 	uint16_t data; 
 	
     Wire.beginTransmission(_i2c_addr);
@@ -60,34 +63,34 @@ uint16_t TLA2022::read_reg(uint8_t reg_addr){
 	return data;
 }
 
-void TLA2022::setFSR(TLA2022::FSR range) {
-    uint16_t conf = read_reg(TLA2022_CONF_REG);
+void TLA20XX::setFSR(TLA20XX::FSR range) {
+    uint16_t conf = read_reg(TLA20XX_CONF_REG);
 
     conf &= ~0x0E00;
     conf |= range << 9;
 
-    write_reg(TLA2022_CONF_REG,conf);
+    write_reg(TLA20XX_CONF_REG,conf);
 }
 
-void TLA2022::setMode(TLA2022::MODE mode) {
-    uint16_t conf = read_reg(TLA2022_CONF_REG);
+void TLA20XX::setMode(TLA20XX::MODE mode) {
+    uint16_t conf = read_reg(TLA20XX_CONF_REG);
 
     conf &= ~(1 << 8);
     if (mode == OP_SINGLE) {
         conf |= (1 << 8);
     }
-    write_reg(TLA2022_CONF_REG,conf);
+    write_reg(TLA20XX_CONF_REG,conf);
 }
 
-void TLA2022::setDR(TLA2022::DR rate) {
-    uint16_t conf = read_reg(TLA2022_CONF_REG);
+void TLA20XX::setDR(TLA20XX::DR rate) {
+    uint16_t conf = read_reg(TLA20XX_CONF_REG);
 
     conf |= rate << 5;
-    write_reg(TLA2022_CONF_REG,conf);
+    write_reg(TLA20XX_CONF_REG,conf);
 }
 
-int16_t TLA2022::read_adc() {
-    uint16_t in_data = read_reg(TLA2022_CONV_REG);
+int16_t TLA20XX::read_adc() {
+    uint16_t in_data = read_reg(TLA20XX_CONV_REG);
 
     int16_t ret = (int16_t) in_data;
     ret>>=4;
@@ -95,14 +98,14 @@ int16_t TLA2022::read_adc() {
     return ret;
 }
 
-void TLA2022::begin() 
+void TLA20XX::begin() 
 {
-    uint16_t init = read_reg(TLA2022_CONF_REG);
+    uint16_t init = read_reg(TLA20XX_CONF_REG);
 
     Serial.print("Inited: ");
     Serial.println(init);
 
-    write_reg(TLA2022_CONF_REG,0x8683);
+    write_reg(TLA20XX_CONF_REG,0x8683);
 }
 
 

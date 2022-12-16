@@ -24,59 +24,37 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef protocentral_tla2022_h
-#define protocentral_tla2022_h
-
 #include <Arduino.h>
 #include <Wire.h>
+#include <protocentral_tla2022.h>
 
-#define TLA20XX_CONV_REG 0x00
-#define TLA20XX_CONF_REG 0x01
+#define TLA20XX_I2C_ADDR 0x49
 
-class TLA20XX
+TLA20XX tla2022(TLA20XX_I2C_ADDR);
+
+void setup() 
 {
-  public:
-    enum DR {
-        DR_128SPS = 0x0,
-        DR_250SPS = 0x1,
-        DR_490SPS = 0x2,
-        DR_920SPS = 0x3,
-        DR_1600SPS = 0x4,
-        DR_2400SPS = 0x5,
-        DR_3300SPS = 0x6,
-    };
+    Serial.begin(57600);
+    Serial.println("Starting ADC...");
 
-     enum FSR {
-        FSR_6_144V = 0x0,
-        FSR_4_096V = 0x1,
-        FSR_2_048V = 0x2,
-        FSR_1_024V = 0x3,
-        FSR_0_512V = 0x4,
-        FSR_0_256V = 0x5,
-    };
+    //Wire.setSDA(4);
+    //Wire.setSCL(5);
 
-    enum MODE {
-        OP_CONTINUOUS = 0,
-        OP_SINGLE = 1
-    };
+    Wire.begin();
 
-    TLA20XX(uint8_t i2c_addr);
-    void begin(void);
-    int16_t read_adc();
-    void setFSR(FSR fsr);
-    void setMode(MODE mode);
-    void setDR(DR rate);
+    tla2022.begin();
+    
+    tla2022.setMode(TLA20XX::OP_CONTINUOUS);
+    tla2022.setDR(TLA20XX::DR_128SPS);
+    tla2022.setFSR(TLA20XX::FSR_2_048V);
+}
 
-  private:
-    void write_reg(uint8_t reg_addr, uint16_t data);
-    uint16_t read_reg(uint8_t reg_addr);
+float val;
 
-    uint8_t _i2c_addr;
-
-    union I2C_data {
-        uint8_t u8_bytes[2];
-        uint16_t u16_value;
-    } _i2c_data;
-};
-
-#endif
+void loop() 
+{
+    float val = tla2022.read_adc(); // +/- 2.048 V FSR, 1 LSB = 1 mV
+    Serial.println(val);
+    
+    delay(100);
+}

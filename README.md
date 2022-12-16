@@ -1,81 +1,30 @@
-# ProtoCentral MAX30001 ECG and Bio-Impedance Breakout Board
-[![Compile Examples](https://github.com/Protocentral/protocentral_max30001_arduino_library/workflows/Compile%20Examples/badge.svg)](https://github.com/Protocentral/protocentral_max30001_arduino_library/actions?workflow=Compile+Examples)
+# ProtoCentral TLA20XX Arduino Library
 
-![ProtoCentral MAX30001 Single-channel ECG breakout](assets/max30001_brk.jpg)
+[![Compile Examples](https://github.com/Protocentral/protocentral_tla20XX_arduino/workflows/Compile%20Examples/badge.svg)](https://github.com/Protocentral/protocentral_tla20XX_arduino/actions?workflow=Compile+Examples)
 
-If you dont already have one, you can buy [ProtoCentral MAX30001 breakout here.](https://protocentral.com/product/protocentral-max30001/)
+The [Texas Instruments TLA2022/2024](https://www.ti.com/product/TLA2024) is one of the smallest high-performance, 12-bit sigma-delta analog-to-digital converter(ADCs) we've seen with an integrated voltage reference and programmable gain amplifier (PGA). With a sampling rate of up to 3.3 kSPS, the TLA20XX is ideal for a wide range of applications, including data acquisition, measurement, and control systems. 
 
+One of the key features of the TLA20XX is its sigma-delta architecture, which enables it to deliver high resolution and excellent linearity. The ADC also has a built-in reference that provides a stable and accurate voltage reference, ensuring consistent and reliable conversion results.
 
-MAX30001 is a single-lead ECG monitoring IC which has built-in R-R detection and several other features that make it perfect for a wearable single-lead ECG application.  
+The TLA2022 and TLA 2024 also include a programmable gain amplifier (PGA) that allows users to adjust the gain of the input signal, making it possible to amplify or attenuate the signal as needed. This feature is especially useful in applications where the input signal may be too small or too large for the ADC to handle.
 
-Several new features on this chip make it ideal for wearable applications. First is the low power consumption - just 85 uW of power and can work from 1.1 V onwards ! Also of interest is the fact that it can work with only two chest electrodes without the need for a third right-leg drive (DRL) electrode.
+In terms of connectivity, the TLA20XX includes an I2C interface, making it easy to interface with a variety of microcontrollers and other devices. This ADC's supply voltage range is quite wide, from 2V to 5.5V, which means that it can powered from and operated from a 3.3V or 5V compatible system such as an Arduino without the need for level shifters or other regulators.
 
-The best feature of this chip though is the built-in R-R detection algorithm which can measure the time between successive peaks of the QRS complex of the ECG. This means that heart-computation comes right out of the box without any microcontroller-side code requirement. Heart-rate computation just got a lot easier !!
+The ProtoCentral tinyADC and tinyGSR breaakout boards use this ADC and library for data acquisition.
 
 # Features
 
-* MAX30001 IC on-board
-* Single-lead ECG monitoring
-* R-R peak detection for heart rate computation
-* High DC Offset range
-* Heart Rate computation using Pan-Tompkins algorithm
-* On-board level translator for 5V-tolerant operation
-* On-board low-noise 1.8V and 3.3V voltage regulator
+* 12-bit Sigma-Delta ADC
+* 4 single-ended or 2 fully differential inputs (on the TLA2024, one on the TLA2022)
+* Integrated voltage reference
+* Integrated Programmaable Gain amplifier (PGA)
+* Supply voltage 2 V to 5.5 V DC
+* Programmable sampling rate from 128 SPS to 3300 SPS
+* I2C / Qwiic compatible interface
 
 # Repository Contents
 
-* This repository contains only the Arduino library software
-* Hardware information (schematics, datasheets etc.) is at https://github.com/Protocentral/protocentral_max30001
-
-# Wiring the board to your Arduino
-
-If you have bought the breakout the connection with the Arduino board is as follows:
-
-|MAX30001 pin label| Arduino Connection   |Pin Function      |
-|----------------- |:--------------------:|-----------------:|
-| MISO             | D12                  |  Slave out|             
-| MOSI             | D11                  |  Slave in           |
-| SCK              | D13                  |  Serial clock     |
-| CS0              | D7                   |  Slave select|
-| FCLK             | NC                   |  External clock(32KHz)     |
-| INT1             | D2                   |  Interrupt        |
-| INT2             | NC                   |  Interrupt       |
-| 3V3              | Supply               |  Board which supports 3.3V and 1.8V    |
-| VCC              | Supply 5V            | 5V            |
-| GND              | Gnd  
-
-
-# Running the Arduino Sketch
-
-If you have correctly installed the libraries, the example sketeches should now be available from within Arduino.
-
-Open up your Arduino IDE and run the Arudino sketch (.ino) file in the archive that you downloaded. Your Arduino should now be programmed to read the ecg data and sending over the USB-UART.  
-
-# Using the ProtoCentral OpenView GUI
-
-The GUI for visualizing the ECG and Respiration as well as parameters like Heart rate and Respiration rate is written in Processing, based on Java and is cross-compilable across platforms.
-
-![Wearing the Electrode](assets/gif-max30001-openview.gif)
-
-Java 8 is required on all platforms for running the processing-based GUI application. You can download Java for your platform from the [Official Java website](https://www.java.com/en/download/).
-
-You can download and install [ProtoCentral OpenView from here](https://github.com/Protocentral/protocentral_openview).
-
-Once you have opened OpenView, make sure to select "MAX30001 breakout" under the "Select Board" dropdown. 
-
-# Connecting the ECG Electrodes
-
-A 2-electrode cable along with a standard stereo jack is provided along with the shield to connect the electrodes to the board. The electrode input connector is highlighted in the below picture.
-
-The other side of the electrode connector would connect to snap-on electrodes attached to the body. For testing purposes, you can use an ECG simulator to provide inputs to the board.
-
-*Warning:
-When connecting the electodes to the body, it is safer to disconnect the mains power source to the Arduino. For example, if  you are using the Arduino along with a laptop, disconnecting the battery charger from the laptop would be a safe option.*
-
-# Placing the Electrodes on the body
-
-![Wearing the Electrode](assets/body.png)
-
+* This repository contains only the Arduino library software and examples
 
 License Information
 ===================
