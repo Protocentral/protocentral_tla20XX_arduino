@@ -25,7 +25,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 
 #include<SPI.h>
-#include "protocentral_tla20xx.h"
+#include "protocentral_TLA20xx.h"
 
 TLA20XX::TLA20XX(uint8_t i2c_addr)
 {
