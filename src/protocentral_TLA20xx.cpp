@@ -24,7 +24,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////////////////
 
-#include<SPI.h>
 #include "protocentral_TLA20xx.h"
 
 TLA20XX::TLA20XX(uint8_t i2c_addr)
@@ -107,5 +106,3 @@ void TLA20XX::begin()
 
     write_reg(TLA20XX_CONF_REG,0x8683);
 }
-
-
