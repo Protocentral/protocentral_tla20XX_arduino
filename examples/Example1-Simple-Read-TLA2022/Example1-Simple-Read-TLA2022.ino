@@ -26,7 +26,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <protocentral_tla20xx.h>
+#include <protocentral_TLA20xx.h>
 
 #define TLA20XX_I2C_ADDR 0x49
 
