@@ -37,22 +37,33 @@ class TLA20XX
 {
   public:
     enum DR {
-        DR_128SPS = 0x0,
-        DR_250SPS = 0x1,
-        DR_490SPS = 0x2,
-        DR_920SPS = 0x3,
-        DR_1600SPS = 0x4,
-        DR_2400SPS = 0x5,
-        DR_3300SPS = 0x6,
+        DR_128SPS = 0x00,
+        DR_250SPS = 0x01,
+        DR_490SPS = 0x02,
+        DR_920SPS = 0x03,
+        DR_1600SPS = 0x04,
+        DR_2400SPS = 0x05,
+        DR_3300SPS = 0x06,
     };
 
      enum FSR {
-        FSR_6_144V = 0x0,
-        FSR_4_096V = 0x1,
-        FSR_2_048V = 0x2,
-        FSR_1_024V = 0x3,
-        FSR_0_512V = 0x4,
-        FSR_0_256V = 0x5,
+        FSR_6_144V = 0x00,
+        FSR_4_096V = 0x01,
+        FSR_2_048V = 0x02,
+        FSR_1_024V = 0x03,
+        FSR_0_512V = 0x04,
+        FSR_0_256V = 0x05,
+    };
+
+    enum MUX {
+        MUX_AIN0_AIN1 = 0x00,
+        MUX_AIN0_AIN3 = 0x01,
+        MUX_AIN1_AIN3 = 0x02,
+        MUX_AIN2_AIN3 = 0x03,
+        MUX_AIN0_GND = 0x04,
+        MUX_AIN1_GND = 0x05,
+        MUX_AIN2_GND = 0x06,
+        MUX_AIN3_GND = 0x07,
     };
 
     enum MODE {
@@ -66,6 +77,7 @@ class TLA20XX
     void setFSR(FSR fsr);
     void setMode(MODE mode);
     void setDR(DR rate);
+    void setMux(MUX mux);
 
   private:
     void write_reg(uint8_t reg_addr, uint16_t data);
