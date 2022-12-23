@@ -31,7 +31,7 @@
 
 #define TLA20XX_I2C_ADDR 0x49
 
-TLA20XX tla2022(TLA20XX_I2C_ADDR);
+TLA20XX tla2024(TLA20XX_I2C_ADDR);
 
 void setup() 
 {
@@ -43,13 +43,15 @@ void setup()
 
     Wire.begin();
 
-    tla2022.begin();
+    tla2024.begin();
     
-    tla2022.setMode(TLA20XX::OP_CONTINUOUS);
+    tla2024.setMode(TLA20XX::OP_CONTINUOUS);
 
-    
-    tla2022.setDR(TLA20XX::DR_128SPS);
-    tla2022.setFSR(TLA20XX::FSR_2_048V);
+
+    tla2024.setDR(TLA20XX::DR_128SPS);
+    tla2024.setFSR(TLA20XX::FSR_2_048V);
+
+    tla2024.setMux(TLA20XX::MUX_AIN2_AIN3);
 
     
 }
@@ -58,7 +60,7 @@ float val;
 
 void loop() 
 {
-    float val = tla2022.read_adc(); // +/- 2.048 V FSR, 1 LSB = 1 mV
+    float val = tla2024.read_adc(); // +/- 2.048 V FSR, 1 LSB = 1 mV
     Serial.println(val);
     
     delay(100);
