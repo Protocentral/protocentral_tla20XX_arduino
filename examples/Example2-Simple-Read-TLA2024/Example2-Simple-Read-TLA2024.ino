@@ -51,9 +51,8 @@ void setup()
     tla2024.setDR(TLA20XX::DR_128SPS);
     tla2024.setFSR(TLA20XX::FSR_2_048V);
 
-    tla2024.setMux(TLA20XX::MUX_AIN2_AIN3);
-
-    
+    // Set default channel as AIN0 <-> GND
+    tla2024.setMux(TLA20XX::MUX_AIN0_GND);    
 }
 
 float val;
@@ -61,7 +60,7 @@ float val;
 void loop() 
 {
     float val = tla2024.read_adc(); // +/- 2.048 V FSR, 1 LSB = 1 mV
-    Serial.println(val);
+    Serial.println(val); // Print in mV
     
     delay(100);
 }

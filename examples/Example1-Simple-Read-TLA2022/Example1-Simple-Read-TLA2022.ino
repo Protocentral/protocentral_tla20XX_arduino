@@ -35,6 +35,7 @@ TLA20XX tla2022(TLA20XX_I2C_ADDR);
 
 void setup() 
 {
+    delay(3000);
     Serial.begin(57600);
     Serial.println("Starting ADC...");
 
@@ -57,5 +58,5 @@ void loop()
     float val = tla2022.read_adc(); // +/- 2.048 V FSR, 1 LSB = 1 mV
     Serial.println(val);
     
-    delay(100);
+    delay(10);
 }
