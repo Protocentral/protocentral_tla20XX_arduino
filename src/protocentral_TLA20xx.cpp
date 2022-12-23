@@ -88,14 +88,13 @@ void TLA20XX::setDR(TLA20XX::DR rate) {
     write_reg(TLA20XX_CONF_REG,conf);
 }
 
-void setMux(TLA20XX::MUX mux){
-    uint16_t conf = read(confReg_);
+void TLA20XX::setMux(TLA20XX::MUX mux){
+   uint16_t conf = read_reg(TLA20XX_CONF_REG);
     // clear MUX bits
     conf &= ~0x7000;
 
     conf |= mux << 12;
-    write(conf);
-
+    write_reg(TLA20XX_CONF_REG,conf);
 }
 
 int16_t TLA20XX::read_adc() {
