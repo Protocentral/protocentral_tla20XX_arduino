@@ -2,6 +2,10 @@
 
 [![Compile Examples](https://github.com/Protocentral/protocentral_tla20XX_arduino/workflows/Compile%20Examples/badge.svg)](https://github.com/Protocentral/protocentral_tla20XX_arduino/actions?workflow=Compile+Examples)
 
+![ProtoCentral tinyADC](tinyadc.jpg)
+
+This is the Arduino library for the [ProtoCentral tinyADC TLA2024 Breakout board](https://protocentral.com/product/protocentral-tinyadc-tla2024-12-bit-delta-sigma-adc-breakout-board-qwiic-stemma-qt/)
+
 The [Texas Instruments TLA2022/2024](https://www.ti.com/product/TLA2024) is one of the smallest high-performance, 12-bit sigma-delta analog-to-digital converter(ADCs) we've seen with an integrated voltage reference and programmable gain amplifier (PGA). With a sampling rate of up to 3.3 kSPS, the TLA20XX is ideal for a wide range of applications, including data acquisition, measurement, and control systems. 
 
 One of the key features of the TLA20XX is its sigma-delta architecture, which enables it to deliver high resolution and excellent linearity. The ADC also has a built-in reference that provides a stable and accurate voltage reference, ensuring consistent and reliable conversion results.
