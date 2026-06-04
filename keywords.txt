@@ -1,0 +1,83 @@
+#######################################
+# Syntax Coloring Map For protocentral_TLA20xx
+#######################################
+
+#######################################
+# Datatypes / Classes (KEYWORD1)
+#######################################
+
+TLA20XX	KEYWORD1
+DR	KEYWORD1
+FSR	KEYWORD1
+MUX	KEYWORD1
+MODE	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+isConnected	KEYWORD2
+
+setFSR	KEYWORD2
+setMode	KEYWORD2
+setDR	KEYWORD2
+setMux	KEYWORD2
+getFSR	KEYWORD2
+getMode	KEYWORD2
+getDR	KEYWORD2
+getMux	KEYWORD2
+getConfig	KEYWORD2
+
+readADC	KEYWORD2
+readMillivolts	KEYWORD2
+readVoltage	KEYWORD2
+
+startSingleConversion	KEYWORD2
+isConversionReady	KEYWORD2
+readADC_SingleShot	KEYWORD2
+
+getLSBmV	KEYWORD2
+toMillivolts	KEYWORD2
+
+readRegister	KEYWORD2
+writeRegister	KEYWORD2
+
+read_adc	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+TLA20XX_I2C_ADDR_GND	LITERAL1
+TLA20XX_I2C_ADDR_VDD	LITERAL1
+TLA20XX_I2C_ADDR_SDA	LITERAL1
+TLA20XX_I2C_ADDR_SCL	LITERAL1
+TLA20XX_DEFAULT_ADDRESS	LITERAL1
+
+DR_128SPS	LITERAL1
+DR_250SPS	LITERAL1
+DR_490SPS	LITERAL1
+DR_920SPS	LITERAL1
+DR_1600SPS	LITERAL1
+DR_2400SPS	LITERAL1
+DR_3300SPS	LITERAL1
+
+FSR_6_144V	LITERAL1
+FSR_4_096V	LITERAL1
+FSR_2_048V	LITERAL1
+FSR_1_024V	LITERAL1
+FSR_0_512V	LITERAL1
+FSR_0_256V	LITERAL1
+
+MUX_AIN0_AIN1	LITERAL1
+MUX_AIN0_AIN3	LITERAL1
+MUX_AIN1_AIN3	LITERAL1
+MUX_AIN2_AIN3	LITERAL1
+MUX_AIN0_GND	LITERAL1
+MUX_AIN1_GND	LITERAL1
+MUX_AIN2_GND	LITERAL1
+MUX_AIN3_GND	LITERAL1
+
+OP_CONTINUOUS	LITERAL1
+OP_SINGLE	LITERAL1

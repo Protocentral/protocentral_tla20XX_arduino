@@ -1,9 +1,32 @@
-on: [push, pull_request]
+name: Arduino Lint
+
+on:
+  push:
+    paths:
+      - "library.properties"
+      - "keywords.txt"
+      - "src/**"
+      - "examples/**"
+      - ".github/workflows/arduino-lint.yml"
+  pull_request:
+    paths:
+      - "library.properties"
+      - "keywords.txt"
+      - "src/**"
+      - "examples/**"
+      - ".github/workflows/arduino-lint.yml"
+  workflow_dispatch:
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: arduino/arduino-lint-action@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Arduino Lint
+        uses: arduino/arduino-lint-action@v1
         with:
           library-manager: update
+          compliance: strict
+          project-type: library
