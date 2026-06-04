@@ -28,5 +28,9 @@ jobs:
         uses: arduino/arduino-lint-action@v1
         with:
           library-manager: update
-          compliance: strict
+          # "specification" (the default), not "strict": the library name
+          # "ProtoCentral TLA20xx" is already published in the Library Manager
+          # index and cannot be renamed, so the strict-only "no spaces in name"
+          # rule (LP015) must not be treated as a hard error.
+          compliance: specification
           project-type: library
